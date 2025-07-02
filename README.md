@@ -53,7 +53,7 @@
 
 ---
 
-## 3. 開発サイクル（推奨）
+## 4. 開発サイクル
 
 1. VS Code でプロジェクトフォルダを開く。
 2. `index.html` を右クリック → **Open with Live Server**。
@@ -61,13 +61,13 @@
 
 ---
 
-## 4. ライセンス / 行動規範
+## 5. ライセンス / 行動規範
 
 - **ソースコード**: MIT License
 
 ---
 
-## 5. 参考リンク
+## 6. 参考リンク
 
 - MDN Web Docs — [https://developer.mozilla.org/](https://developer.mozilla.org/)
 - Flexbox Froggy — [https://flexboxfroggy.com/](https://flexboxfroggy.com/)
