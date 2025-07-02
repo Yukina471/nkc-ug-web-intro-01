@@ -1,74 +1,113 @@
-## 0. 目的とゴール
+# Step 2: CSS Basics
 
-- GitHub からリポジトリを **Fork → Clone -> commit&push** する手順を体験する。
-- HTML → CSS → JavaScript の順に、Web フロント開発に必要な概念や基礎構文と DOM 操作の最小パターンを理解する。
-
-最終的には、デモページをブラウザで動作させ、任意の要素をクリックで表示／非表示できるところまで到達します。
+このブランチ **`step-2-css`** では、前ステップで作成した HTML 構造にスタイルを適用し、見た目を整えます。ここでは **CSS の役割・基本文法・主要セレクタ・Flexbox** を扱い、シンプルなレイアウトを実装します。
 
 ---
 
-## 1. 事前準備（必須）
+## 1. CSS の役割
 
-各自 PC に以下ツールをインストールし、動作確認まで完了させてください。
-
-| ツール             | ダウンロードリンク                                                                                                                                     | 動作確認コマンド・手順                        |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------- |
-| Git                | [https://git-scm.com/downloads](https://git-scm.com/downloads)                                                                                         | `git --version` が表示される                  |
-| GitHub アカウント  | [https://github.com/](https://github.com/)                                                                                                             | サインインできる                              |
-| Visual Studio Code | [https://code.visualstudio.com/](https://code.visualstudio.com/)                                                                                       | VS Code が起動する                            |
-| Live Server 拡張   | [https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) | VS Code で「Open with Live Server」が利用可能 |
-| Google Chrome      | [https://www.google.com/chrome/](https://www.google.com/chrome/)                                                                                       | 起動して最新版であることを確認                |
+CSS (Cascading Style Sheets) は **HTML が持つ論理構造に対し、視覚的な装飾やレイアウトを与える言語** です。色・フォント・余白・グリッド配置・アニメーションなどを司ります。
 
 ---
 
-## 2. ブランチ構成と学習フロー
+## 2. 基本文法
 
-| ブランチ名       | 学習内容                                                | 状態                 |
-| ---------------- | ------------------------------------------------------- | -------------------- |
-| `main`           | 勉強会の説明と各環境構築やコマンドなど                  | 本勉強会スタート地点 |
-| `step-1-html`    | HTML 基礎（論理構造・見出し・リストなど）を追加         | 15  分前後           |
-| `step-2-css`     | CSS 基礎（色・余白・Flexbox でのレイアウト）を追加      | 15  分前後           |
-| `step-3-js`      | JavaScript 基礎（DOM 取得・イベントハンドリング）を追加 | 15  分前後           |
-| `final-solution` | 参考実装（完成形）                                      | 復習用               |
-
-> **ブランチ切替方法**
->
-> ```bash
-> git fetch --all
-> git checkout step-1-html   # 次のステップに進む例
-> ```
-
----
-
-## 3. ファイル構成（全ブランチ共通）
-
-```
-/
-├── index.html   # マークアップ
-├── style.css    # スタイルシート
-├── script.js    # スクリプト
-└── README.md    # 各ステップでの説明
-
+```css
+selector {
+  property: value;
+}
 ```
 
+例：
+
+```css
+p {
+  color: navy;
+}
+```
+
+### 主要セレクタ
+
+| 種類   | 記法      | 例        | 説明                 |
+| ------ | --------- | --------- | -------------------- |
+| 要素   | `element` | `p`       | タグ名で指定         |
+| クラス | `.class`  | `.intro`  | 再利用可能なスタイル |
+| ID     | `#id`     | `#top`    | ページ内一意         |
+| 子孫   | `A B`     | `nav a`   | A の子孫 B           |
+| 子     | `A > B`   | `ul > li` | 直下の子のみ         |
+| 複数   | `A, B`    | `h1, h2`  | 複数をまとめて指定   |
+
 ---
 
-## 4. 開発サイクル
+## 2‑2. Flexbox チートシート
 
-1. VS Code でプロジェクトフォルダを開く。
-2. `index.html` を右クリック → **Open with Live Server**。
-3. ファイルを保存すると、Chrome が自動リロードして変更を即確認できる。
+```css
+.container {
+  display: flex; /* Flexbox を有効化 */
+  gap: 1rem; /* 子要素間の隙間 */
+  justify-content: center; /* 主軸揃え */
+  align-items: center; /* 交差軸揃え */
+}
+```
+
+Flexbox は複数要素を **1 次元（横方向または縦方向）** に並べ替えるモダンなレイアウト手法です。レスポンシブ対応が容易なため、初学者にも推奨されます。
 
 ---
 
-## 5. ライセンス / 行動規範
+## 3. ミニ演習  ② — デザイン追加（10  分）
 
-- **ソースコード**: MIT License
+1. リポジトリ直下に `style.css` を新規作成し、以下を記述。
+
+   ```css
+   body {
+     font-family: system-ui, sans-serif;
+     line-height: 1.6;
+     margin: 0 1rem;
+   }
+   h1 {
+     color: #0d47a1;
+   }
+
+   nav ul {
+     display: flex;
+     gap: 0.5rem;
+     list-style: none;
+     padding: 0;
+   }
+
+   @media (max-width: 600px) {
+     nav ul {
+       flex-direction: column;
+     }
+   }
+   ```
+
+2. `index.html` `<head>` 内にリンクタグを追加。
+
+   ```html
+   <link rel="stylesheet" href="style.css" />
+   ```
+
+3. **Live Server** を再読み込みし、文字色・余白・ナビゲーション並びが反映されているか確認。
+4. いい感じに CSS を書き換えて色や余白を自由に変更してみる。
 
 ---
 
-## 6. 参考リンク
+## 4. 完了後コミット。
 
-- MDN Web Docs — [https://developer.mozilla.org/](https://developer.mozilla.org/)
-- Flexbox Froggy — [https://flexboxfroggy.com/](https://flexboxfroggy.com/)
-- MDN Web Docs JavaScript Guide — [https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide](https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide)
+```bash
+git add .
+git commit -m "style: add basic styles"
+git push origin step-2-css
+```
+
+---
+
+## 5. 参考リンク
+
+- **MDN — CSS First Steps**: [https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps](https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps)
+- **CSS Tricks — A Complete Guide to Flexbox**: [https://css-tricks.com/snippets/css/a-guide-to-flexbox/](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+
+---
+
+> 📦 次のステップ → `step-3-js` へ進む際は `git checkout step-3-js` を実行してください。
