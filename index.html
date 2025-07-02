@@ -6,7 +6,50 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- ここに HTML を追加していきます -->
+    <!-- ヘッダー（サイトタイトルとナビゲーション） -->
+    <header>
+      <h1>My Favourite Movies</h1>
+      <nav>
+        <ul>
+          <li><a href="#movies">Movies</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main>
+      <!-- 映画リスト -->
+      <section id="movies">
+        <h2>Movie List</h2>
+        <ul>
+          <li>
+            <strong>Inception</strong> (2010)<br />
+            <img src="./asset/inception.png" alt="Inception poster" width="180" />
+            <p>A mind-bending thriller about dreams within dreams.</p>
+          </li>
+          <li>
+            <strong>Interstellar</strong> (2014)<br />
+            <img src="./asset/inception.png" alt="Interstellar poster" width="180" />
+            <p>An epic journey through space and time in search of a new home.</p>
+          </li>
+        </ul>
+      </section>
+
+      <!-- サイト概要 -->
+      <section id="about">
+        <h2>About This Site</h2>
+        <p>
+          This demo page is part of the NKC-UG Web Development Intro workshop. It demonstrates semantic HTML structure
+          that will be styled in Step 2 and made interactive in Step 3.
+        </p>
+      </section>
+    </main>
+
+    <!-- フッター -->
+    <footer>
+      <small>&copy; 2025 Movie Fan</small>
+    </footer>
 
     <script src="script.js"></script>
   </body>

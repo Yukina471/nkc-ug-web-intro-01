@@ -1,0 +1,95 @@
+/* ------- 1. ベース (全体に共通する文字設定・余白) ------- */
+:root {
+  /* 将来カラーパレットを拡張しやすいよう CSS 変数で定義 */
+  --brand-blue: #0d47a1;
+  --text-body: #1a1a1a;
+  --text-light: #ffffff;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  color: var(--text-body);
+  margin: 0 1rem;
+}
+
+/* ------- 2. 見出し (階層ごとのサイズと色) ------- */
+h1 {
+  color: var(--brand-blue);
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 2px solid var(--brand-blue);
+  padding-bottom: 0.25rem;
+}
+
+/* ------- 3. ナビゲーション ------- */
+nav ul {
+  display: flex;
+  gap: 0.75rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav a {
+  text-decoration: none; /* 下線を消してボタン風に */
+  color: var(--text-light);
+  background: var(--brand-blue);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+nav a:hover,
+nav a:focus {
+  background: #08306b;
+}
+
+/* ------- 4. レスポンシブ (600px 以下で縦並び) ------- */
+@media (max-width: 600px) {
+  nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ------- 5. 映画リスト ------- */
+#movies ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+#movies li {
+  flex: 0 1 230px;
+  background: #f5f7fa;
+  border-radius: 6px;
+  padding: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+#movies li img {
+  width: 100%;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+#movies ul[hidden] {
+  display: none;
+}
+
+/* ------- 6. フッター ------- */
+footer {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #555;
+}

@@ -1,74 +1,96 @@
-## 0. 目的とゴール
+# Step 3: JavaScript Basics
 
-- GitHub からリポジトリを **Fork → Clone -> commit&push** する手順を体験する。
-- HTML → CSS → JavaScript の順に、Web フロント開発に必要な概念や基礎構文と DOM 操作の最小パターンを理解する。
-
-最終的には、デモページをブラウザで動作させ、任意の要素をクリックで表示／非表示できるところまで到達します。
+このブランチ **`step-3-js`** では、既にマークアップとスタイルが完成したページに **動き（インタラクション）** を加えます。JavaScript (JS) の役割、DOM 操作、イベントハンドリングの基本を学び、クリックでリストを表示／非表示に切り替える実装を行います。
 
 ---
 
-## 1. 事前準備（必須）
+## 1. JavaScript の役割
 
-各自 PC に以下ツールをインストールし、動作確認まで完了させてください。
+JavaScript はブラウザ上で実行され、**HTML (DOM)** と **CSS (スタイル)** を動的に操作して、ユーザーと対話できる Web ページを作ります。本ステップでは、以下を最小セットとして習得します。
 
-| ツール             | ダウンロードリンク                                                                                                                                     | 動作確認コマンド・手順                        |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------- |
-| Git                | [https://git-scm.com/downloads](https://git-scm.com/downloads)                                                                                         | `git --version` が表示される                  |
-| GitHub アカウント  | [https://github.com/](https://github.com/)                                                                                                             | サインインできる                              |
-| Visual Studio Code | [https://code.visualstudio.com/](https://code.visualstudio.com/)                                                                                       | VS Code が起動する                            |
-| Live Server 拡張   | [https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) | VS Code で「Open with Live Server」が利用可能 |
-| Google Chrome      | [https://www.google.com/chrome/](https://www.google.com/chrome/)                                                                                       | 起動して最新版であることを確認                |
+1. **DOM 取得**: `document.querySelector()` で要素を選択
+2. **内容変更**: `textContent`, `classList.toggle()` 等で内容やクラスを変更
+3. **イベント処理**: `addEventListener()` でクリックなどの操作を検知
 
 ---
 
-## 2. ブランチ構成と学習フロー
+## 2. DOM 操作の基本
 
-| ブランチ名       | 学習内容                                                | 状態                 |
-| ---------------- | ------------------------------------------------------- | -------------------- |
-| `main`           | 勉強会の説明と各環境構築やコマンドなど                  | 本勉強会スタート地点 |
-| `step-1-html`    | HTML 基礎（論理構造・見出し・リストなど）を追加         | 15  分前後           |
-| `step-2-css`     | CSS 基礎（色・余白・Flexbox でのレイアウト）を追加      | 15  分前後           |
-| `step-3-js`      | JavaScript 基礎（DOM 取得・イベントハンドリング）を追加 | 15  分前後           |
-| `final-solution` | 参考実装（完成形）                                      | 復習用               |
+| 目的         | API                          | 使用例                                          |
+| ------------ | ---------------------------- | ----------------------------------------------- |
+| 要素取得     | `document.querySelector()`   | `const btn = document.querySelector('button');` |
+| テキスト変更 | `element.textContent`        | `btn.textContent = 'クリックされました';`       |
+| クラス切替   | `element.classList.toggle()` | `element.classList.toggle('hidden');`           |
+| 属性変更     | `element.setAttribute()`     | `img.setAttribute('alt', 'New alt');`           |
 
-> **ブランチ切替方法**
->
-> ```bash
-> git fetch --all
-> git checkout step-1-html   # 次のステップに進む例
-> ```
+> 🔍 **DevTools で確認**: Chrome で `F12` → Elements タブを開き、選択した要素に対応する DOM がハイライトされることを確認してみましょう。
 
 ---
 
-## 3. ファイル構成（全ブランチ共通）
+## 3. イベントハンドリング
 
-```
-/
-├── index.html   # マークアップ
-├── style.css    # スタイルシート
-├── script.js    # スクリプト
-└── README.md    # 各ステップでの説明
-
+```js
+button.addEventListener("click", (event) => {
+  // クリック時の処理
+});
 ```
 
----
-
-## 4. 開発サイクル
-
-1. VS Code でプロジェクトフォルダを開く。
-2. `index.html` を右クリック → **Open with Live Server**。
-3. ファイルを保存すると、Chrome が自動リロードして変更を即確認できる。
+- 第 1 引数: イベント種別 (`'click'`, `'input'`, `'keyup'` など)
+- 第 2 引数: コールバック関数。イベント発生時に実行される
 
 ---
 
-## 5. ライセンス / 行動規範
+## 4. ミニ演習  ③ — 表示切替ボタン（10  分）
 
-- **ソースコード**: MIT License
+1. プロジェクト直下に **`script.js`** を新規作成し、次を貼り付け。
+
+   ```js
+   // ページ読み込み完了後に実行
+   window.addEventListener("DOMContentLoaded", () => {
+     // 1) ボタン生成
+     const toggleBtn = document.createElement("button");
+     toggleBtn.textContent = "Toggle Movie List";
+
+     // 2) ボタンを <h2> 見出しの前に挿入
+     const movieSection = document.querySelector("#movies");
+     const movieHeading = movieSection.querySelector("h2");
+     movieHeading.before(toggleBtn);
+
+     // 3) クリックで <ul> を表示／非表示
+     const movieList = movieSection.querySelector("ul");
+     toggleBtn.addEventListener("click", () => {
+       movieList.hidden = !movieList.hidden;
+     });
+   });
+   ```
+
+2. `index.html` の末尾（`</body>` の直前）でスクリプトを読み込み。
+
+   ```html
+   <script src="script.js"></script>
+   ```
+
+3. **Live Server** を更新し、ボタンを押すたびに映画リストが表示／非表示になることを確認。
+4. 任意でボタンにクラスを付与し、`style.css` で見た目を整えてみましょう。
+
+---
+
+## 5. 完了したらコミット。
+
+```bash
+git add .
+git commit -m "feat(js): add toggle button"
+git push origin step-3-js
+```
 
 ---
 
 ## 6. 参考リンク
 
-- MDN Web Docs — [https://developer.mozilla.org/](https://developer.mozilla.org/)
-- Flexbox Froggy — [https://flexboxfroggy.com/](https://flexboxfroggy.com/)
-- MDN Web Docs JavaScript Guide — [https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide](https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide)
+- **MDN — JavaScript First Steps**: [https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps)
+- **JavaScript.info — DOM Basics**: [https://javascript.info/dom-nodes](https://javascript.info/dom-nodes)
+- **Event Reference**: [https://developer.mozilla.org/en-US/docs/Web/Events](https://developer.mozilla.org/en-US/docs/Web/Events)
+
+---
+
+> 🎉 これで基礎 3 ステップ完了です。追加演習やリファクタリングに挑戦したい方は `final-solution` ブランチの実装を参考にしてください。
